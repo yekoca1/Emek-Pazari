@@ -5,10 +5,10 @@ import Products from "./Components/Home/Products";
 
 export default function Home() {
   return (
-    <div> 
-      <Category/>
-      <Banner/>
-      <Products/>
+    <div>
+      <Category />
+      <Banner />
+      <Products />
     </div>
   );
 }

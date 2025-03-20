@@ -4,7 +4,7 @@ import { Avatar, Rating } from "@mui/material";
 import { RxAvatar } from "react-icons/rx";
 
 const Comments = ({ prd }: { prd: any }) => {
-  console.log(prd);
+  //console.log(prd);
   return (
     <div className="border w-full md:w-1/3 p-2 rounded-lg my-3">
       {/* <Avatar image ={prd?.user?.image}/> */}

@@ -3,7 +3,7 @@
 import PageContainer from "../Containers/PageContainer"
 import Image from "next/image"
 import Counter from "../general/Counter"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Rating } from "@mui/material"
 import Button from "../general/Button"
 import Comments from "./Comments"
@@ -23,8 +23,9 @@ export type CardProductProps = {
 
 const DetailClient = ({product}: {product:any}) => {
 
-    const {productCardQty} = useCard()
-    console.log("prduct amcuk",productCardQty)
+    const {productCardQty, addToBasket, cardP} = useCard()
+    //console.log("prduct amcuk",productCardQty)
+    const [displayButton, setDisplayButton] = useState(false)
  
     const[cardProduct, setCardProduct] = useState<CardProductProps>({
         id: product.id,
@@ -36,6 +37,13 @@ const DetailClient = ({product}: {product:any}) => {
         inStock: product.inStock,
     })
 
+    //console.log("cardP",cardP)
+
+    useEffect(()=>{
+        setDisplayButton(false)
+        let controlDisplay:any = cardP?.findIndex(card => card.id == product.id)
+        if(controlDisplay > -1) setDisplayButton(true)
+    }, [cardP])
 
     function increaseFunc() {
         if(cardProduct.quantity == 10) return
@@ -66,9 +74,13 @@ const DetailClient = ({product}: {product:any}) => {
                             product.inStock ? <div className="text-green-500"> Ürün Stokta Mevcut ! </div> : <div className="text-red-500"> Ürün Stokta Bulunmamaktadır ! </div>
                         } 
                     </div>
-                        <Counter increaseFunc={increaseFunc} decreaseFunc={decreaseFunc} cardProduct={cardProduct} />
                         <div className="text-lg md: text-xl font-bold">{product.price} $</div>
-                        <Button text ="Sepete Ekle" small onClick={() => {}}/>
+
+                        {displayButton? 
+                          <><Button text ="Ürün Sepete Eklendi" small outline onClick={() => {}}/></> : //else anlamına gelen : 
+                          <> <Counter increaseFunc={increaseFunc} decreaseFunc={decreaseFunc} cardProduct={cardProduct} />
+                          <Button text ="Sepete Ekle" small onClick={() => addToBasket(cardProduct)}/> </> } 
+                        
                     </div>
                 </div>
                 <Heading text = "Yorumlar"/>

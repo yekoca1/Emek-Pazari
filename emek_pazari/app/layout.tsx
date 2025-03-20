@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./Components/navbar/Navbar";
 import Footer from "./Components/footer/Footer";
 import { CardContextProvider } from "@/Hooks/useCard";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <Toaster position="top-right" reverseOrder={false}/>
         <CardContextProvider>
           <div className="flex flex-col min-h-screen">
           <Navbar/>
